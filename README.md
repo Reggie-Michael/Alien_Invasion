@@ -264,7 +264,7 @@ Utility functions to support common game operations:
 ## Gameplay
 
 - **Objective**: Control the spaceship to destroy waves of aliens and progress through levels.
-- **Controls**: Use arrow keys to move left and right, and spacebar to fire bullets.
+- **Controls**: Use arrow keys to move left and right, and spacebar to fire bullets. You can also use shift to make the characters faster and q to quit the game.
 - **Scoring**: Points are awarded based on aliens destroyed, with high scores tracked.
 
 ## Future Enhancements
