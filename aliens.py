@@ -9,8 +9,8 @@ class Alien(Sprite):
     alien_types = [0, 1, 2]
     alien_attributes = [
         {"image": "alien.bmp", "hp": 1},
-        {"image": "alien.png", "hp": 2},
-        {"image": "SpiderBot.png", "hp": 3},
+        {"image": "alien2.png", "hp": 2},
+        {"image": "SpiderBot2.png", "hp": 3},
     ]
 
     def __init__(self, ai_game):
@@ -19,14 +19,12 @@ class Alien(Sprite):
         self.screen = ai_game.screen
         self.settings = ai_game.settings
         # alien type to determine health, and image
+        alien_index = utils.get_value_by_level(self.settings.increment_counter)
         self.type = (
-            0 if 0 in self.alien_types else 0
+            alien_index if alien_index in self.alien_types else 0
         )  # for later when type is passed from game and it is outside tuple range
 
         set_alien = self.alien_attributes[self.type]
-        # print(self.type)
-        # print(set_alien)
-        # print(set_alien.get("image"))
         # load the alien image and set it's rect attribute
         self.image = pygame.image.load(utils.get_file_path(set_alien.get("image")))
         if self.type > 0:
@@ -45,10 +43,11 @@ class Alien(Sprite):
         # Alien stats
         alien_hp = set_alien.get("hp")
         self.health = alien_hp + (
-            alien_hp * self.settings.level // (10 * len(self.alien_attributes))
+            alien_hp
+            * (self.settings.increment_counter // (10 * len(self.alien_attributes)))
         )
-        if self.settings.isBossLevel:
-            self.health = self.health * (self.settings.level // 5)
+        if self.settings.is_boss_level:
+            self.health = self.health * (self.settings.increment_counter // 5)
 
         # Store the alien's exact horizontal position
         self.x = float(self.rect.x)
@@ -62,5 +61,3 @@ class Alien(Sprite):
         """Move the alien to the right or left."""
         self.x += self.settings.alien_speed * self.settings.fleet_direction
         self.rect.x = self.x
-
-
